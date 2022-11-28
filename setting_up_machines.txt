@@ -55,3 +55,5 @@ cmake -G 'Unix Makefiles' -DQUIC_TLS=openssl -DQUIC_OUTPUT_DIR="$HOME/msquic/art
 cmake --build .
 
 TODO: Now we need to get the certs for testing
+TODO: edith_pw path?
+TODO: generate new benchmark configs
