@@ -23,7 +23,7 @@ def clear_netem(server_hostname, server_pw_path, server_ip, interface, ingress_i
     if virtual_interface:
         delete_virtual_interface(server_hostname, server_pw_path, server_ip, interface, virtual_interface)
     cmd = (
-        "sudo tc qdisc del dev {} root;"
-        "sudo tc qdisc show dev enp1s0f1"
-    ).format(interface)
+        "sudo tc qdisc del dev {interface} root;"
+        "sudo tc qdisc show dev {interface}"
+    ).format(interface=interface)
     subprocess.run(get_remote_cmd_sudo(server_hostname, server_pw_path, cmd), shell=True)
