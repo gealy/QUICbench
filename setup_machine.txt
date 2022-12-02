@@ -61,6 +61,7 @@ mkdir build && cd build
 cmake -G 'Unix Makefiles' -DQUIC_TLS=openssl -DQUIC_OUTPUT_DIR="$HOME/msquic/artifacts/bin/linux/x64_Debug_openssl" -DQUIC_LINUX_LOG_ENCODER=lttng -DQUIC_ENABLE_LOGGING=on -DQUIC_BUILD_TOOLS=on -DQUIC_BUILD_TEST=on -DQUIC_BUILD_PERF=on -DCMAKE_BUILD_TYPE=Debug -DQUIC_LIBRARY_NAME=msquic -S ..
 cmake --build .
 
+cd ~/.
 
 # Need to install iperf3 on both machines
 sudo apt install -y iperf3
