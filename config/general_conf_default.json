@@ -1,7 +1,7 @@
 {
     "server_ip": "10.0.1.101",
     "server_hostname": "node-1",
-    "server_pw_path": "/users/cag158/edith_pw",
+    "server_pw_path": "",
     "server_repo_path": "/users/cag158/QUICbench",
     "interface": "eth1",
     "server_ingress_interface": "eth1",
