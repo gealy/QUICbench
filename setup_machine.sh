@@ -1,16 +1,8 @@
+# Update systems
+sudo apt update
+sudo apt upgrade -y
 
-# Install QUICHE
-cd ~/.
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source "$HOME/.cargo/env"
-git clone --recursive https://github.com/cloudflare/quiche && cd quiche
-git checkout c629ef2574d5a4645b9d4ee09117eacf9cffc51a
-cargo build --examples
-
-
-# MSQUIC steps
-
-# install cmake
+#install cmake
 cd ~/.
 sudo apt-get purge -y cmake
 wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
@@ -20,7 +12,19 @@ sudo rm /usr/share/keyrings/kitware-archive-keyring.gpg
 sudo apt-get install -y kitware-archive-keyring
 sudo apt-get install -y cmake
 
+# Install QUICHE
+cd ~/.
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
+git clone --recursive https://github.com/cloudflare/quiche && cd quiche
+    git checkout c629ef2574d5a4645b9d4ee09117eacf9cffc51a
+cargo build --examples
+
+
+# MSQUIC steps
+
 # install dotnet
+cd ~/.
 wget https://download.visualstudio.microsoft.com/download/pr/1d2007d3-da35-48ad-80cc-a39cbc726908/1f3555baa8b14c3327bb4eaa570d7d07/dotnet-sdk-6.0.403-linux-x64.tar.gz
 mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-6.0.403-linux-x64.tar.gz -C $HOME/dotnet
 echo "export DOTNET_ROOT=\$HOME/dotnet" >> ~/.bashrc

@@ -68,7 +68,7 @@ def set_kernel_params(kernel_params, server_hostname, server_pw_path):
     print("Setting kernel parameters:")
     for param, value in kernel_params.items():
         subprocess.run("sudo sysctl -w {}=\"{}\"".format(param, value), shell=True, check=True)
-        subprocess.run(get_remote_cmd_sudo(server_hostname, server_pw_path, "sudo sysctl -w {}=\\\"{}\\\"".format(param, value)), 
+        subprocess.run(get_remote_cmd_sudo(server_hostname, server_pw_path, "sudo sysctl -w {}=\"{}\"".format(param, value)), 
             shell=True, check=True)
 
 
