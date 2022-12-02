@@ -1,0 +1,329 @@
+{
+    "experiment_name": "testing",
+    "experiment_results_dir": "/users/cag158/quic_results",
+    "num_trials": 5,
+    "netem_conf": {
+        "RTT_ms": 10,
+        "bandwidth_Mbps": 20,
+        "buffer_bdp": 0.5
+    },
+    "flow_duration_s": 120,
+    "virtual_interface": "eth1",
+    "stacks_combinations": [
+        {
+            "name": "msquic-cubic_msquic-cubic",
+            "stacks": [
+                {
+                    "name": "msquic",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "msquic",
+                    "cc_algo": "cubic",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "msquic-cubic_quiche-cubic",
+            "stacks": [
+                {
+                    "name": "msquic",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "quiche",
+                    "cc_algo": "cubic",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "msquic-cubic_quiche-reno",
+            "stacks": [
+                {
+                    "name": "msquic",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "quiche",
+                    "cc_algo": "reno",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "msquic-cubic_tcp-cubic",
+            "stacks": [
+                {
+                    "name": "msquic",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "cubic",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "msquic-cubic_tcp-bbr",
+            "stacks": [
+                {
+                    "name": "msquic",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "bbr",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "msquic-cubic_tcp-reno",
+            "stacks": [
+                {
+                    "name": "msquic",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "reno",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "quiche-cubic_quiche-cubic",
+            "stacks": [
+                {
+                    "name": "quiche",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "quiche",
+                    "cc_algo": "cubic",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "quiche-cubic_quiche-reno",
+            "stacks": [
+                {
+                    "name": "quiche",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "quiche",
+                    "cc_algo": "reno",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "quiche-cubic_tcp-cubic",
+            "stacks": [
+                {
+                    "name": "quiche",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "cubic",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "quiche-cubic_tcp-bbr",
+            "stacks": [
+                {
+                    "name": "quiche",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "bbr",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "quiche-cubic_tcp-reno",
+            "stacks": [
+                {
+                    "name": "quiche",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "reno",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "quiche-reno_quiche-reno",
+            "stacks": [
+                {
+                    "name": "quiche",
+                    "cc_algo": "reno",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "quiche",
+                    "cc_algo": "reno",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "quiche-reno_tcp-cubic",
+            "stacks": [
+                {
+                    "name": "quiche",
+                    "cc_algo": "reno",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "cubic",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "quiche-reno_tcp-bbr",
+            "stacks": [
+                {
+                    "name": "quiche",
+                    "cc_algo": "reno",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "bbr",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "quiche-reno_tcp-reno",
+            "stacks": [
+                {
+                    "name": "quiche",
+                    "cc_algo": "reno",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "reno",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "tcp-cubic_tcp-cubic",
+            "stacks": [
+                {
+                    "name": "tcp",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "cubic",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "tcp-cubic_tcp-bbr",
+            "stacks": [
+                {
+                    "name": "tcp",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "bbr",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "tcp-cubic_tcp-reno",
+            "stacks": [
+                {
+                    "name": "tcp",
+                    "cc_algo": "cubic",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "reno",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "tcp-bbr_tcp-bbr",
+            "stacks": [
+                {
+                    "name": "tcp",
+                    "cc_algo": "bbr",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "bbr",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "tcp-bbr_tcp-reno",
+            "stacks": [
+                {
+                    "name": "tcp",
+                    "cc_algo": "bbr",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "reno",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "tcp-reno_tcp-reno",
+            "stacks": [
+                {
+                    "name": "tcp",
+                    "cc_algo": "reno",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "tcp",
+                    "cc_algo": "reno",
+                    "port_no": "4001"
+                }
+            ]
+        }
+    ]
+}
