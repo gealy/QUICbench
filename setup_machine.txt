@@ -21,7 +21,7 @@ cd ~/.
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source "$HOME/.cargo/env"
 git clone --recursive https://github.com/cloudflare/quiche && cd quiche
-    git checkout c629ef2574d5a4645b9d4ee09117eacf9cffc51a
+git checkout c629ef2574d5a4645b9d4ee09117eacf9cffc51a
 cargo build --examples
 
 
@@ -64,3 +64,17 @@ cmake --build .
 
 # Need to install iperf3 on both machines
 sudo apt install -y iperf3
+
+# Errors with tcpdump, so give ourselves permission to run it
+# https://www.linuxtutorial.co.uk/tcpdump-eth0-you-dont-have-permission-to-capture-on-that-device/
+sudo groupadd pcap
+sudo usermod -a -G pcap cag158
+sudo chgrp pcap /usr/sbin/tcpdump
+sudo chmod 750 /usr/sbin/tcpdump
+sudo setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
+
+sudo apt install -y python3-pip
+pip3 install pandas
+
+# Need to install wireshark, allow non-superusers to capture packets
+sudo apt install -y tshark
