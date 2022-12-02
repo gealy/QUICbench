@@ -47,7 +47,7 @@ sudo apt-get install -y build-essential liblttng-ust-dev lttng-tools gdb
 
 
 # add clog2text
-dotnet build msquic/submodules/clog
+dotnet build submodules/clog
 dotnet tool update --global --add-source submodules/clog/src/nupkg "Microsoft.Logging.CLOG2Text.Lttng"
 
 mkdir build && cd build
