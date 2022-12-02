@@ -21,10 +21,10 @@ from stacks.modified_stacks import *
 
 # Define constants:
 DEFAULT_PE_STACKS = [
-    Chromium.NAME, Msquic.NAME, Mvfst.NAME, Quiche.NAME, ChromiumN1.NAME, MvfstPR100.NAME, ChromiumAF2.NAME, MvfstAF2.NAME, Tcp.NAME
+    Msquic.NAME,Quiche.NAME, Tcp.NAME
 ]
 DEFAULT_TPRATIOS_STACKS = [
-    Chromium.NAME, Msquic.NAME, Mvfst.NAME, Quiche.NAME, Tcp.NAME
+   Msquic.NAME, Quiche.NAME, Tcp.NAME
 ]
 
 
