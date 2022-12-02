@@ -8,10 +8,9 @@ class Tcp(Stack):
     BBR = "bbr"
     RENO = "reno"
 
-    def __init__(self, server_ip, server_hostname, server_pw_path):
+    def __init__(self, server_ip, server_hostname):
         self.server_ip = server_ip
         self.server_hostname = server_hostname
-        self.server_pw_path = server_pw_path
 
     def run_remote_server(self, port_no, cc_algo, duration_s):
         cmd = self.run_server_cmd(port_no, cc_algo, duration_s)
@@ -20,7 +19,7 @@ class Tcp(Stack):
 
     def run_remote_server_wlogs(self, port_no, cc_algo, duration_s, log_path):
         cmd = self.run_server_cmd_wlogs(port_no, cc_algo, duration_s, log_path)
-        cmd = get_remote_cmd_sudo(self.server_hostname, self.server_pw_path, " ".join(cmd))
+        cmd = get_remote_cmd_sudo(self.server_hostname, " ".join(cmd))
         return subprocess.Popen(cmd, shell=True)
 
     def run_client(self, port_no, cc_algo, duration_s):

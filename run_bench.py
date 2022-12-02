@@ -41,16 +41,16 @@ def validate_exp_iflogging(exp_conf):
             fail_validate()
 
 
-def check_sudo_privileges(server_hostname, server_pw_path):
+def check_sudo_privileges(server_hostname):
     subprocess.run("sudo echo 'Got sudo privileges for local machine.'", shell=True, check=True)
     try:
-        subprocess.run(get_remote_cmd_sudo(server_hostname, server_pw_path, "sudo echo 'Got sudo privileges for server machine.'"),
+        subprocess.run(get_remote_cmd_sudo(server_hostname, "sudo echo 'Got sudo privileges for server machine.'"),
             shell=True, check=True, timeout=1)
     except subprocess.TimeoutExpired:
         sys.exit("exiting... server password is incorrect.")
 
 
-def init_stacks(stacks_conf, server_ip, server_hostname, server_pw_path):
+def init_stacks(stacks_conf, server_ip, server_hostname):
     stacks_dict = {}    
     def get_subclasses(kls):
         for subclass in kls.__subclasses__():
@@ -59,16 +59,15 @@ def init_stacks(stacks_conf, server_ip, server_hostname, server_pw_path):
     all_stacks_kls = set(get_subclasses(stack.Stack))
     for kls in all_stacks_kls:
         stacks_dict[kls.NAME] = kls(server_ip=server_ip, server_hostname=server_hostname,
-                                    server_pw_path=server_pw_path,
                                     **stacks_conf.get(kls.NAME, {}))
     return stacks_dict
 
 
-def set_kernel_params(kernel_params, server_hostname, server_pw_path):
+def set_kernel_params(kernel_params, server_hostname):
     print("Setting kernel parameters:")
     for param, value in kernel_params.items():
         subprocess.run("sudo sysctl -w {}=\"{}\"".format(param, value), shell=True, check=True)
-        subprocess.run(get_remote_cmd_sudo(server_hostname, server_pw_path, "sudo sysctl -w {}=\\\"{}\\\"".format(param, value)), 
+        subprocess.run(get_remote_cmd_sudo(server_hostname, "sudo sysctl -w {}=\\\"{}\\\"".format(param, value)), 
             shell=True, check=True)
 
 
@@ -86,15 +85,14 @@ def main():
 
     server_ip, server_hostname, interface, server_ingress_interface, server_repo_path = \
         itemgetter("server_ip", "server_hostname", "interface", "server_ingress_interface", "server_repo_path")(general_conf)
-
-    server_pw_path = general_conf["server_pw_path"]    
-    check_sudo_privileges(server_hostname, server_pw_path)
+ 
+    check_sudo_privileges(server_hostname)
     
-    stacks_kls = init_stacks(stacks_conf, server_ip, server_hostname, server_pw_path)
-    set_kernel_params(general_conf["kernel_params"], server_hostname, server_pw_path)
+    stacks_kls = init_stacks(stacks_conf, server_ip, server_hostname)
+    set_kernel_params(general_conf["kernel_params"], server_hostname)
 
     has_veth, virtual_interface = "virtual_interface" in exp_conf, exp_conf.get("virtual_interface")
-    set_netem(server_hostname, server_pw_path, server_ip, interface, 
+    set_netem(server_hostname, server_ip, interface, 
         server_ingress_interface, exp_conf["netem_conf"], virtual_interface)
     
     test_rtt(server_ip)
@@ -181,8 +179,8 @@ def main():
                     # reset interface
                     subprocess.run(["sudo", "ip", "link", "set", "dev", interface, "down"], check=True)
                     subprocess.run(["sudo", "ip", "link", "set", "dev", interface, "up"], check=True)
-                    clear_netem(server_hostname, server_pw_path, server_ip, interface, server_ingress_interface, virtual_interface)
-                    set_netem(server_hostname, server_pw_path, server_ip, interface, 
+                    clear_netem(server_hostname, server_ip, interface, server_ingress_interface, virtual_interface)
+                    set_netem(server_hostname, server_ip, interface, 
                         server_ingress_interface, exp_conf["netem_conf"], virtual_interface)
 
                     # kill processes
@@ -196,7 +194,7 @@ def main():
 
     finally:
         # clean up
-        clear_netem(server_hostname, server_pw_path, server_ip, interface, server_ingress_interface, virtual_interface)
+        clear_netem(server_hostname, server_ip, interface, server_ingress_interface, virtual_interface)
 
 
 if __name__ == "__main__":
