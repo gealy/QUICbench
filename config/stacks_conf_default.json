@@ -1,8 +1,8 @@
 {
     "msquic": {
         "server_path": "/users/cag158/msquic/artifacts/bin/linux/x64_Debug_openssl/quicinteropserver",
-        "server_cert_path": "/users/cag158/certs/quic-server.crt",
-        "server_key_path": "/users/cag158/certs/quic-server.key",
+        "server_cert_path": "/users/cag158/certs/test.crt",
+        "server_key_path": "/users/cag158/certs/test.key",
         "server_static_file_dir": "/www",
         "server_static_filename": "index.html",
         "client_path": "/users/cag158/msquic/artifacts/bin/linux/x64_Debug_openssl/quicinterop",

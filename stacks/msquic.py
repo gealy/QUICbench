@@ -41,7 +41,7 @@ class Msquic(Stack):
     def run_server_cmd(self, port_no, cc_algo, duration_s):
         return map(str, [
             "timeout", duration_s,
-            self.server_path,
+            self.server_path, "-file:{}".format(self.server_cert_path), "-key:{}".format(self.server_key_path),
             "-root:{}".format(self.server_static_file_dir), "-listen:0.0.0.0", "-port:{}".format(port_no)
         ])
 
@@ -54,7 +54,7 @@ class Msquic(Stack):
             "lttng add-context --userspace --type=vpid --type=vtid;",
             "lttng start;",
             "timeout", duration_s,
-            self.server_path,
+            self.server_path, "-file:{}".format(self.server_cert_path), "-key:{}".format(self.server_key_path),
             "-root:{}".format(self.server_static_file_dir), "-listen:0.0.0.0", "-port:{}".format(port_no), ";",
             "lttng stop msquic;",
             "babeltrace --names all {}* > {};".format(Msquic.MSQUIC_LOGS_TMPDIR, Msquic.MSQUIC_LOGS_TMPFILE),
