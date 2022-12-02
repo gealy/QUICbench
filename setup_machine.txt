@@ -82,7 +82,12 @@ sudo apt install -y tshark
 
 
 # On node-1, need certificates for openssl
+# https://learn.microsoft.com/en-us/azure/iot-hub/tutorial-x509-self-sign
 mkdir ~/certs && cd ~/certs
 openssl genpkey -out test.key -algorithm RSA -pkeyopt rsa_keygen_bits:2048
 openssl req -new -key test.key -out test.csr
 openssl x509 -req -days 365 -in test.csr -signkey test.key -out test.crt
+
+# Setup static files
+mkdir /users/cag158/www
+touch /users/cag158/www/index.html

@@ -3,7 +3,7 @@
         "server_path": "/users/cag158/msquic/artifacts/bin/linux/x64_Debug_openssl/quicinteropserver",
         "server_cert_path": "/users/cag158/certs/test.crt",
         "server_key_path": "/users/cag158/certs/test.key",
-        "server_static_file_dir": "/www",
+        "server_static_file_dir": "/users/cag158/www",
         "server_static_filename": "index.html",
         "client_path": "/users/cag158/msquic/artifacts/bin/linux/x64_Debug_openssl/quicinterop",
         "clog_sidecar_path": "/users/cag158/msquic/src/manifest/clog.sidecar",
@@ -14,7 +14,7 @@
         "server_path": "/users/cag158/quiche/apps/Cargo.toml",
         "server_cert_path": "/users/cag158/quiche/apps/src/bin/cert.crt",
         "server_key_path": "/users/cag158/quiche/apps/src/bin/cert.key",
-        "server_static_file_dir": "/www",
+        "server_static_file_dir": "/users/cag158/www",
         "server_static_filename": "index.html",
         "client_cargo_path": "/users/cag158/.cargo/bin/cargo",
         "client_path": "/users/cag158/quiche/apps/Cargo.toml"
