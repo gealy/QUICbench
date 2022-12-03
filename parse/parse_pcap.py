@@ -87,9 +87,7 @@ def get_moving_window_average_rates(packets_df, window_size_s):
             )
             window_size_sum -= packets_df.iloc[window_start_pointer][FRAME_LEN]
             window_start_pointer += 1
-            # This check is to make sure we don't index out of bounds
-            if index + 1 < len(packets_df):
-                window_start_time = packets_df.iloc[window_start_pointer][RELATIVE_TIME]
+            window_start_time = packets_df.iloc[window_start_pointer][RELATIVE_TIME]
 
     return average_rates
 
@@ -167,9 +165,19 @@ def get_delay_trace(packets_df, veth_packets_df, flow_duration_s, window_size_s)
             delay_moving_window_trace.append([time, avg_delay])
             window_size_sum -= delay_trace[window_start_pointer][1]
             window_start_pointer += 1
-            # This check is to make sure we don't index out of bounds
-            if index + 1 < len(packets_df):
+            try:
                 window_start_time = delay_trace[window_start_pointer][0]
+            except:
+                import pickle
+                print("ERROR")
+                print("index : {}".format(index))
+                print("start_pointer : {}".format(window_start_pointer))
+                with open("/users/cag158/delayfile.pk","wb") as f:
+                    pickle.dump(delay_trace, f)
+                with open("/users/cag158/packets_delay.pk","wb") as f:
+                    pickle.dump(packets_df, f)
+                exit()
+                
 
     return delay_moving_window_trace
 
