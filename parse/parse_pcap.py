@@ -87,7 +87,9 @@ def get_moving_window_average_rates(packets_df, window_size_s):
             )
             window_size_sum -= packets_df.iloc[window_start_pointer][FRAME_LEN]
             window_start_pointer += 1
-            window_start_time = packets_df.iloc[window_start_pointer][RELATIVE_TIME]
+            # This check is to make sure we don't index out of bounds
+            if index + 1 < len(packets_df):
+                window_start_time = packets_df.iloc[window_start_pointer][RELATIVE_TIME]
 
     return average_rates
 
@@ -165,7 +167,9 @@ def get_delay_trace(packets_df, veth_packets_df, flow_duration_s, window_size_s)
             delay_moving_window_trace.append([time, avg_delay])
             window_size_sum -= delay_trace[window_start_pointer][1]
             window_start_pointer += 1
-            window_start_time = delay_trace[window_start_pointer][0]
+            # This check is to make sure we don't index out of bounds
+            if index + 1 < len(packets_df):
+                window_start_time = delay_trace[window_start_pointer][0]
 
     return delay_moving_window_trace
 
