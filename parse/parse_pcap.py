@@ -170,10 +170,10 @@ def get_delay_trace(packets_df, veth_packets_df, flow_duration_s, window_size_s)
             except:
                 import pickle
                 print("ERROR")
-                print("index : {}".format(index))
-                print("start_pointer : {}".format(window_start_pointer))
-                with open("/users/cag158/delayfile.pk","wb") as f:
-                    pickle.dump(delay_trace, f)
+                print("flow_duration_s : {}".format(flow_duration_s))
+                print("window_size_s : {}".format(window_size_s))
+                with open("/users/cag158/veth_packets_df.pk","wb") as f:
+                    pickle.dump(veth_packets_df, f)
                 with open("/users/cag158/packets_delay.pk","wb") as f:
                     pickle.dump(packets_df, f)
                 exit()
