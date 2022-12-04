@@ -15,9 +15,7 @@ sys.path.insert(1, os.path.join(sys.path[0], '..')) # allow importing from paren
 
 from utils.files import read_json_as_dict
 from constants import *
-from stacks.chromium import Chromium
 from stacks.msquic import Msquic
-from stacks.mvfst import Mvfst
 from stacks.quiche import Quiche
 from stacks.tcp import Tcp
 
@@ -25,14 +23,8 @@ from stacks.tcp import Tcp
 # DEFINING CONSTANTS:
 AVG_TP_FIELD = "avg_tp"
 # stacks to consider for plotting throughput ratios
-ALL_STACKS = [
-    (Mvfst.NAME, Mvfst.CUBIC),
-    (Mvfst.NAME, Mvfst.BBR),
-    (Mvfst.NAME, Mvfst.RENO),    
+ALL_STACKS = [  
     (Msquic.NAME, Msquic.CUBIC),
-    (Chromium.NAME, Chromium.CUBIC),
-    (Chromium.NAME, Chromium.BBR),
-    (Chromium.NAME, Chromium.BBRV2),
     (Quiche.NAME, Quiche.CUBIC),
     (Quiche.NAME, Quiche.RENO),
     (Tcp.NAME, Tcp.CUBIC),

@@ -15,9 +15,7 @@ sys.path.insert(1, os.path.join(sys.path[0], '..')) # allow importing from paren
 
 from constants import *
 from utils.files import read_json_as_dict
-from stacks.chromium import Chromium
 from stacks.msquic import Msquic
-from stacks.mvfst import Mvfst
 from stacks.quiche import Quiche
 from stacks.tcp import Tcp
 
@@ -30,17 +28,14 @@ STEP_RTT_MULT = 10
 VALID_CC_ALGOS = ["cubic", "bbr", "reno"]
 # default list of QUIC stacks to consider for plotting performance envelopes
 DEFAULT_STACKS = {
-    "cubic": [Chromium.NAME, Msquic.NAME, Mvfst.NAME, Quiche.NAME],
-    "bbr": [Chromium.NAME, Mvfst.NAME],
-    "reno": [Mvfst.NAME, Quiche.NAME],
+    "cubic": [Msquic.NAME, Quiche.NAME],
+    "reno": [Quiche.NAME],
 }
 REFERENCE_STACK = Tcp.NAME
 
 PLOT_COLORS = {
     Tcp.NAME: "rv",
     Quiche.NAME: "ks",
-    Chromium.NAME: "g^",
-    Mvfst.NAME: "b.",
     Msquic.NAME: "mp"
 }
 

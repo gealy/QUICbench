@@ -16,15 +16,9 @@ from visualize.plot_tp_ratios import *
 EPS = 0.05
 # stacks to consider for analyzing transitivity
 ALL_STACKS = [
-    (Mvfst.NAME, Mvfst.CUBIC),
-    (Mvfst.NAME, Mvfst.BBR),
-    (Mvfst.NAME, Mvfst.RENO),
     # Can only get transitivity for all stacks without msquic,
     # as the performance of msquic is not consistent across trials
     # (Msquic.NAME, Msquic.CUBIC),
-    (Chromium.NAME, Chromium.CUBIC),
-    (Chromium.NAME, Chromium.BBR),
-    (Chromium.NAME, Chromium.BBRV2),
     (Quiche.NAME, Quiche.CUBIC),
     (Quiche.NAME, Quiche.RENO),
     (Tcp.NAME, Tcp.CUBIC),
