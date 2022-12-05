@@ -4,9 +4,9 @@ from stacks.stack import Stack
 
 class Udp(Stack):
     NAME = "udp"
-    B10 = "10"
-    B25 = "25"
-    B50 = "50"
+    B10 = "10M"
+    B25 = "25M"
+    B50 = "50M"
 
     def __init__(self, server_ip, server_hostname, server_pw_path):
         self.server_ip = server_ip
