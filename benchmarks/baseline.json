@@ -7,7 +7,7 @@
         "bandwidth_Mbps": 20,
         "buffer_bdp": 0.5
     },
-    "flow_duration_s": 60,
+    "flow_duration_s": 45,
     "virtual_interface": "enp1s0f1-br0",
     "stacks_combinations": [
         {
