@@ -1,6 +1,0 @@
-recursive-include distro *
-recursive-include doc *
-recursive-include example *
-recursive-include test *
-include CHANGELOG.txt
-include LICENSE.txt
