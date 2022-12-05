@@ -4,9 +4,9 @@ from stacks.stack import Stack
 
 class Udp(Stack):
     NAME = "udp"
-    TWENTY = "10"
-    EIGHTY = "20"
-    ONE_HUND = "100"
+    B10 = "10"
+    B25 = "25"
+    B50 = "50"
 
     def __init__(self, server_ip, server_hostname, server_pw_path):
         self.server_ip = server_ip
@@ -44,4 +44,4 @@ class Udp(Stack):
 
     @staticmethod
     def get_cc_algos():
-        return [Udp.TWENTY, Udp.EIGHTY, Udp.ONE_HUND]
+        return [Udp.B10, Udp.B25, Udp.B50]
