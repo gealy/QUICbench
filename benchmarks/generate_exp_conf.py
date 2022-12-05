@@ -12,19 +12,17 @@ sys.path.insert(1, os.path.join(sys.path[0], '..')) # allow importing from paren
 
 from utils.files import read_json_as_dict, dump_dict_as_json
 from stacks.stack import Stack
-from stacks.chromium import Chromium
 from stacks.msquic import Msquic
-from stacks.mvfst import Mvfst
 from stacks.quiche import Quiche
 from stacks.tcp import Tcp
-from stacks.modified_stacks import *
+from stacks.udp import Udp
 
 # Define constants:
 DEFAULT_PE_STACKS = [
-    Msquic.NAME,Quiche.NAME, Tcp.NAME
+    Msquic.NAME,Quiche.NAME, Tcp.NAME, Udp.NAME
 ]
 DEFAULT_TPRATIOS_STACKS = [
-   Msquic.NAME, Quiche.NAME, Tcp.NAME
+   Msquic.NAME, Quiche.NAME, Tcp.NAME, Udp.NAME
 ]
 
 
