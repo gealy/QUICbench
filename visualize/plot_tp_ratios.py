@@ -124,8 +124,10 @@ def plot_heatmap(tp_ratios_table, row_labels, col_labels, ax=None, cbar_kw=None,
     cbar.ax.set_ylabel(cbarlabel, rotation=-90, va="bottom")
 
     # Show all ticks and label them with the respective list entries.
-    ax.set_xticks(np.arange(tp_ratios_table.shape[1]), labels=col_labels)
-    ax.set_yticks(np.arange(tp_ratios_table.shape[0]), labels=row_labels)
+    ax.set_xticks(np.arange(tp_ratios_table.shape[1]))
+    ax.set_xticklabels(labels=col_labels)
+    ax.set_yticks(np.arange(tp_ratios_table.shape[0]))
+    ax.set_yticklabels(labels=row_labels)
 
     # Let the horizontal axes labeling appear on top.
     ax.tick_params(top=True, bottom=False,
@@ -136,7 +138,8 @@ def plot_heatmap(tp_ratios_table, row_labels, col_labels, ax=None, cbar_kw=None,
              rotation_mode="anchor")
 
     # Turn spines off and create white grid.
-    ax.spines[:].set_visible(False)
+    for _, spine in ax.spines.items():
+        spine.set_visible(False)
 
     ax.set_xticks(np.arange(tp_ratios_table.shape[1]+1)-.5, minor=True)
     ax.set_yticks(np.arange(tp_ratios_table.shape[0]+1)-.5, minor=True)
