@@ -91,3 +91,12 @@ openssl x509 -req -days 365 -in test.csr -signkey test.key -out test.crt
 # Setup static files
 mkdir /users/cag158/www
 touch /users/cag158/www/index.html
+
+# enable BBR on both machines
+# https://www.techrepublic.com/article/how-to-enable-tcp-bbr-to-improve-network-speed-on-linux/
+sudo nano /etc/sysctl.conf
+# add these lines
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr
+# Then reload conf
+sudo sysctl -p
