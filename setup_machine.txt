@@ -1,10 +1,9 @@
 # Need to share ssh key from node 0 to 1
 ssh-keygen
-# then copy pub key to node 1
+# then copy pub key to authorized_keys on node-1
 
 # Update systems
-sudo apt update
-sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 
 #install cmake
 cd ~/.
@@ -23,6 +22,8 @@ source "$HOME/.cargo/env"
 git clone --recursive https://github.com/cloudflare/quiche && cd quiche
 git checkout c629ef2574d5a4645b9d4ee09117eacf9cffc51a
 cargo build --examples
+cargo run --manifest-path=/users/cag158/quiche/apps/Cargo.toml --bin quiche-server
+cargo run --manifest-path=/users/cag158/quiche/apps/Cargo.toml --bin quiche-client
 
 
 # MSQUIC steps
@@ -88,10 +89,6 @@ openssl genpkey -out test.key -algorithm RSA -pkeyopt rsa_keygen_bits:2048
 openssl req -new -key test.key -out test.csr
 openssl x509 -req -days 365 -in test.csr -signkey test.key -out test.crt
 
-# Setup static files
-mkdir /users/cag158/www
-touch /users/cag158/www/index.html
-
 # enable BBR on both machines
 # https://www.techrepublic.com/article/how-to-enable-tcp-bbr-to-improve-network-speed-on-linux/
 sudo nano /etc/sysctl.conf
@@ -100,3 +97,14 @@ net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr
 # Then reload conf
 sudo sysctl -p
+
+## Add details about test html file
+# Setup static files on node 1
+cd ~/QUICbench
+mkdir /users/cag158/www
+python3 gen_file.py -f /users/cag158/www/index.html -b 200000000
+
+# These commands are used for running tests! and then plotting them
+python3 run_bench.py -s=/users/cag158/QUICbench/config/stacks_conf_default.json -k=/users/cag158/QUICbench/config/general_conf_default.json -e=/users/cag158/QUICbench/benchmarks/tp_ratio_1bdp.json
+python3 visualize/plot_tp_ratios.py -e tp_ratio_1bdp.json -d ../quic_results/tp_ratio_1bdp
+

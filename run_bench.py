@@ -25,6 +25,8 @@ def get_prog_args():
         default="./config/general_conf_default.json")
     parser.add_argument("--exp_conf", "-e", help="path to experiment configuration", type=str)
     parser.add_argument("--stack_log", "-l", help="enable stacks logging", action='store_true')
+    parser.add_argument("--wans", "-w", help="when this is on, net_em configuration is ignored. for measuring on real WAN", type=bool,
+         default=False)
     return parser.parse_args()
 
 
@@ -95,7 +97,7 @@ def main():
 
     has_veth, virtual_interface = "virtual_interface" in exp_conf, exp_conf.get("virtual_interface")
     set_netem(server_hostname, server_pw_path, server_ip, interface, 
-        server_ingress_interface, exp_conf["netem_conf"], virtual_interface)
+        server_ingress_interface, exp_conf["netem_conf"], virtual_interface, args.wans)
     
     test_rtt(server_ip)
     test_bandwidth(server_hostname, server_ip)
@@ -183,7 +185,7 @@ def main():
                     subprocess.run(["sudo", "ip", "link", "set", "dev", interface, "up"], check=True)
                     clear_netem(server_hostname, server_pw_path, server_ip, interface, server_ingress_interface, virtual_interface)
                     set_netem(server_hostname, server_pw_path, server_ip, interface, 
-                        server_ingress_interface, exp_conf["netem_conf"], virtual_interface)
+                        server_ingress_interface, exp_conf["netem_conf"], virtual_interface, args.wans)
 
                     # kill processes
                     subprocess.run(get_remote_cmd(server_hostname, ["pkill", "tcpdump"]))

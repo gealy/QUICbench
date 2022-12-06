@@ -23,7 +23,7 @@ def add_virtual_interface(server_hostname, server_pw_path, server_ip, interface,
     ).format(interface=interface, virtual_interface=virtual_interface, server_ip=server_ip)
     subprocess.run(get_remote_cmd_sudo(server_hostname, server_pw_path, cmd), shell=True)
 
-def set_netem(server_hostname, server_pw_path, server_ip, interface, ingress_interface, netem_conf, virtual_interface=None):
+def set_netem(server_hostname, server_pw_path, server_ip, interface, ingress_interface, netem_conf, virtual_interface=None, wans=False):
     print("Setting network emulation:")
     subprocess.run(get_remote_cmd_sudo(server_hostname, server_pw_path, "sudo tc qdisc del dev {} root".format(interface)), shell=True)
     print("Network delay enabled!")
@@ -47,4 +47,6 @@ def set_netem(server_hostname, server_pw_path, server_ip, interface, ingress_int
         "sudo tc qdisc show dev {interface} && sudo tc qdisc show dev {ingress_interface}"
     ).format(interface=interface, ingress_interface=ingress_interface,
         delay_ms=delay_ms, bandwidth_Kbps=bandwidth_Kbps, buffer_bytes=buffer_bytes, burst_bytes=burst_bytes)
-    subprocess.run(get_remote_cmd_sudo(server_hostname, server_pw_path, cmd), shell=True)
+    
+    if wans == False:
+        subprocess.run(get_remote_cmd_sudo(server_hostname, server_pw_path, cmd), shell=True)

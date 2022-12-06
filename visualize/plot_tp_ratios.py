@@ -18,6 +18,7 @@ from constants import *
 from stacks.msquic import Msquic
 from stacks.quiche import Quiche
 from stacks.tcp import Tcp
+from stacks.udp import Udp
 
 
 # DEFINING CONSTANTS:
@@ -29,7 +30,10 @@ ALL_STACKS = [
     (Quiche.NAME, Quiche.RENO),
     (Tcp.NAME, Tcp.CUBIC),
     (Tcp.NAME, Tcp.BBR),
-    (Tcp.NAME, Tcp.RENO)
+    (Tcp.NAME, Tcp.RENO),
+    (Udp.NAME, Udp.B10),
+    (Udp.NAME, Udp.B25),
+    (Udp.NAME, Udp.B50)
 ]
 
 
