@@ -209,11 +209,13 @@ def main():
 
     window_size_s = exp_conf["netem_conf"]["RTT_ms"] / 100 # 10 RTT
     output_throughput_traces(port_outgoing_packets_map, args.trial_dir, exp_conf["flow_duration_s"], window_size_s)
+    os.remove(interface_pcap_path)
 
     # obtain delay traces
-    #veth_pcap_path = os.path.join(args.trial_dir, VETH_PCAP_FILENAME)
-    #if not os.path.exists(veth_pcap_path):
-    #    return
+    veth_pcap_path = os.path.join(args.trial_dir, VETH_PCAP_FILENAME)
+    if not os.path.exists(veth_pcap_path):
+        return
+    os.remove(veth_pcap_path)
     #veth_port_outgoing_packets_map, veth_port_incoming_packets_map = obtain_packets_from_pcap(veth_pcap_path, valid_port_nos, server_ip)
     #output_delay_traces(port_outgoing_packets_map, veth_port_outgoing_packets_map, args.trial_dir, 
     #    exp_conf["flow_duration_s"], window_size_s, exp_conf["netem_conf"]["RTT_ms"]/2)
