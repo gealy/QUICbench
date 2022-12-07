@@ -39,7 +39,7 @@ class Udp(Stack):
     def run_client_cmd(self, port_no, cc_algo, duration_s):
         return map(str, [
             "iperf3", "-c", self.server_ip, "-p", port_no,
-            "-t", duration_s, "-R", "-i", "60", "-u", "-b", cc_algo
+            "-t", duration_s, "-R", "-i", "60", "-l", "1470", "-u", "-b", cc_algo
         ])
 
     @staticmethod
