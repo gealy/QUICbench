@@ -32,7 +32,7 @@ class Udp(Stack):
             "timeout", duration_s,
             "iperf", 
             "-c", "10.0.1.100", "-p", port_no,
-            "-t", duration_s, "-R", "-i", "60", "-u", "-b", cc_algo
+            "-t", duration_s, "-i", "60", "-u", "-b", cc_algo
         ])
 
     def run_server_cmd_wlogs(self, port_no, cc_algo, duration_s, log_path):
