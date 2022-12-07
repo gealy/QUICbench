@@ -1,0 +1,44 @@
+{
+    "experiment_name": "udp",
+    "experiment_results_dir": "quic_results/udp",
+    "num_trials": 1,
+    "netem_conf": {
+        "RTT_ms": 20,
+        "bandwidth_Mbps": 50,
+        "buffer_bdp": 1.0
+    },
+    "flow_duration_s": 45,
+    "virtual_interface": "enp1s0f1-br0",
+    "stacks_combinations": [
+        {
+            "name": "quiche-reno_udp-25M",
+            "stacks": [
+                {
+                    "name": "quiche",
+                    "cc_algo": "reno",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "udp",
+                    "cc_algo": "25M",
+                    "port_no": "4001"
+                }
+            ]
+        },
+        {
+            "name": "udp-10M_udp-25M",
+            "stacks": [
+                {
+                    "name": "udp",
+                    "cc_algo": "10M",
+                    "port_no": "4000"
+                },
+                {
+                    "name": "udp",
+                    "cc_algo": "25M",
+                    "port_no": "4001"
+                }
+            ]
+        }
+    ]
+}
