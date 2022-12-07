@@ -31,7 +31,7 @@ class Udp(Stack):
         return map(str, [
             "timeout", duration_s,
             "iperf", 
-            "-c", 10.0.1.100, "-p", port_no,
+            "-c", "10.0.1.100", "-p", port_no,
             "-t", duration_s, "-R", "-i", "60", "-u", "-b", cc_algo
         ])
 
