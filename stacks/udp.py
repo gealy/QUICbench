@@ -30,7 +30,9 @@ class Udp(Stack):
     def run_server_cmd(self, port_no, cc_algo, duration_s):
         return map(str, [
             "timeout", duration_s,
-            "iperf3", "-s", "-p", port_no, "-1", "-i", "60"
+            "iperf", 
+            "-c", 10.0.1.100, "-p", port_no,
+            "-t", duration_s, "-R", "-i", "60", "-u", "-b", cc_algo
         ])
 
     def run_server_cmd_wlogs(self, port_no, cc_algo, duration_s, log_path):
@@ -38,8 +40,7 @@ class Udp(Stack):
 
     def run_client_cmd(self, port_no, cc_algo, duration_s):
         return map(str, [
-            "iperf3", "-c", self.server_ip, "-p", port_no,
-            "-t", duration_s, "-R", "-i", "60", "-u", "-b", cc_algo
+            "iperf", "-s", "-p", port_no, "-1", "-i", "60", "-t", duration_s
         ])
 
     @staticmethod
