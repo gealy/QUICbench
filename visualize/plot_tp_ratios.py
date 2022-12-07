@@ -78,7 +78,7 @@ def get_stack_combis_avg_tps(two_flows_results_dir, exp_conf_name):
     return stack_combinations
 
 
-def get_stacks_to_tpratio(stack_combinations_with_avgtp):
+def get_stacks_to_tpratio(stack_combinations_with_avgtp, throughput_file):
     '''
     returns map of 2-flows experiment to the throughput ratio given stack_combinations_with_avgtp
     '''
@@ -95,6 +95,8 @@ def get_stacks_to_tpratio(stack_combinations_with_avgtp):
         stack1_hash, stack1_avgtp = get_stack_hash(stack1), get_stack_avgtp(stack1)
         stack2_hash, stack2_avgtp = get_stack_hash(stack2), get_stack_avgtp(stack2)
         total_avgtp = stack1_avgtp + stack2_avgtp
+        
+        throughput_file.write("{}, {}, {}, {}, {}, {}\n".format(stack1_hash[0], stack1_hash[1], stack1_avgtp, stack2_hash[0], stack2_hash[1], stack2_avgtp))
 
         stacks_to_tpratio[(stack1_hash, stack2_hash)] = round(stack1_avgtp / total_avgtp, 5)
         stacks_to_tpratio[(stack2_hash, stack1_hash)] = round(stack2_avgtp / total_avgtp, 5)
@@ -155,9 +157,11 @@ def plot_heatmap(tp_ratios_table, row_labels, col_labels, ax=None, cbar_kw=None,
 
 def main():
     args = get_plot_tp_ratios_args()
+    
+    throughput_file = open(os.path.join(args.dir, "throughput.csv"), "w")
     # get tp_ratios_table
     stack_combinations_with_avgtp = get_stack_combis_avg_tps(args.dir, args.exp)
-    stacks_to_tpratio = get_stacks_to_tpratio(stack_combinations_with_avgtp)
+    stacks_to_tpratio = get_stacks_to_tpratio(stack_combinations_with_avgtp, throughput_file)
     tp_ratios_table = get_tpratios_table(stacks_to_tpratio, ALL_STACKS)
     
     labels = [f"{s} {c}" for s, c in ALL_STACKS]
@@ -176,6 +180,7 @@ def main():
                             cmap="viridis", cbarlabel="Throughput Ratio")
     fig.tight_layout()
     plt.savefig(os.path.join(args.dir, "tpratios_heatmap.png"))
+    throughput_file.close()
 
 
 if __name__ == "__main__":
