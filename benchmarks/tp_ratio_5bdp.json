@@ -1,6 +1,6 @@
 {
-    "experiment_name": "tp_ratio_1bdp",
-    "experiment_results_dir": "quic_results/tp_ratio_1bdp",
+    "experiment_name": "tp_ratio_5bdp",
+    "experiment_results_dir": "quic_results/tp_ratio_5bdp",
     "num_trials": 5,
     "netem_conf": {
         "RTT_ms": 20,
