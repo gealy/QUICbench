@@ -10,6 +10,7 @@ import argparse
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib
 
 sys.path.insert(1, os.path.join(sys.path[0], '..')) # allow importing from parent dir (repo)
 
@@ -92,14 +93,20 @@ def get_stacks_to_tpratio(stack_combinations_with_avgtp, throughput_file):
         assert len(stack_combi["stacks"]) == 2
         stack1 = stack_combi["stacks"][0]
         stack2 = stack_combi["stacks"][1]
-        stack1_hash, stack1_avgtp = get_stack_hash(stack1), get_stack_avgtp(stack1)
-        stack2_hash, stack2_avgtp = get_stack_hash(stack2), get_stack_avgtp(stack2)
-        total_avgtp = stack1_avgtp + stack2_avgtp
+        try:
+            stack1_hash, stack1_avgtp = get_stack_hash(stack1), get_stack_avgtp(stack1)
+            stack2_hash, stack2_avgtp = get_stack_hash(stack2), get_stack_avgtp(stack2)
+            total_avgtp = stack1_avgtp + stack2_avgtp
+            stacks_to_tpratio[(stack1_hash, stack2_hash)] = round(stack1_avgtp / total_avgtp, 5)
+            stacks_to_tpratio[(stack2_hash, stack1_hash)] = round(stack2_avgtp / total_avgtp, 5)
+        except KeyError:
+            stack1_hash, stack1_avgtp = get_stack_hash(stack1), np.nan
+            stack2_hash, stack2_avgtp = get_stack_hash(stack2), np.nan
+            total_avgtp = np.nan
+            stacks_to_tpratio[(stack1_hash, stack2_hash)] = np.nan
+            stacks_to_tpratio[(stack2_hash, stack1_hash)] = np.nan
         
         throughput_file.write("{}, {}, {}, {}, {}, {}\n".format(stack1_hash[0], stack1_hash[1], stack1_avgtp, stack2_hash[0], stack2_hash[1], stack2_avgtp))
-
-        stacks_to_tpratio[(stack1_hash, stack2_hash)] = round(stack1_avgtp / total_avgtp, 5)
-        stacks_to_tpratio[(stack2_hash, stack1_hash)] = round(stack2_avgtp / total_avgtp, 5)
     return stacks_to_tpratio
 
 
@@ -124,7 +131,7 @@ def plot_heatmap(tp_ratios_table, row_labels, col_labels, ax=None, cbar_kw=None,
 
     # Plot the heatmap
     im = ax.imshow(tp_ratios_table, **kwargs)
-
+    
     # Create colorbar
     cbar = ax.figure.colorbar(im, ax=ax, **cbar_kw)
     cbar.ax.set_ylabel(cbarlabel, rotation=-90, va="bottom")
