@@ -98,8 +98,8 @@ def output_throughput_traces(port_no_packets_map, trial_dir, flow_duration_s, wi
         
          # check for premature flow termination
         trace_duration_s = average_rates[-1][0] - average_rates[0][0]
-        if trace_duration_s < flow_duration_s * 0.8 * TRUNCATE_TRACES_BY:
-            raise RuntimeError("flow terminated prematurely. trace duration: {}, min duration: {}".format(trace_duration_s, flow_duration_s * 0.8 * TRUNCATE_TRACES_BY))
+        if trace_duration_s < flow_duration_s * 0.5 * TRUNCATE_TRACES_BY:
+            raise RuntimeError("flow terminated prematurely. trace duration: {}, min duration: {}".format(trace_duration_s, flow_duration_s * 0.5 * TRUNCATE_TRACES_BY))
         else:
             # truncate flow duration
             average_rates = list(filter(lambda row : row[0] < flow_duration_s * TRUNCATE_TRACES_BY, average_rates))
