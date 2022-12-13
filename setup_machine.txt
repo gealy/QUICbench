@@ -105,6 +105,15 @@ mkdir /users/cag158/www
 python3 gen_file.py -f /users/cag158/www/index.html -b 200000000
 
 # These commands are used for running tests! and then plotting them
+# On node-0 for the LAN tests, from the QUICbench folder run: 
 python3 run_bench.py -s=/users/cag158/QUICbench/config/stacks_conf_default.json -k=/users/cag158/QUICbench/config/general_conf_default.json -e=/users/cag158/QUICbench/benchmarks/tp_ratio_1bdp.json
-python3 visualize/plot_tp_ratios.py -e tp_ratio_1bdp.json -d ../quic_results/tp_ratio_1bdp
+python3 run_bench.py -s=/users/cag158/QUICbench/config/stacks_conf_default.json -k=/users/cag158/QUICbench/config/general_conf_default.json -e=/users/cag158/QUICbench/benchmarks/tp_ratio_5bdp.json
+# For the WAN test, on node-0 run 
+python3 run_bench.py -s=/users/cag158/QUICbench/config/stacks_conf_default.json -k=/users/cag158/QUICbench/config/general_conf_default.json -e=/users/cag158/QUICbench/benchmarks/tp_ratio_1bdp.json --wans=True
+
+#To generate the plots, on node-1 run for the LAN test.
+python3 visualize/plot_tp_ratios.py -e tp_ratio_1bdp.json -d /users/cag158/quic_results/tp_ratio_1bdp
+python3 visualize/plot_tp_ratios.py -e tp_ratio_5bdp.json -d /users/cag158/quic_results/tp_ratio_5bdp  
+#For the WAN test, run 
+python3 visualize/plot_tp_ratios.py -e tp_ratio_1bdp.json -d /users/cag158/quic_results/tp_ratio_1bdp
 
